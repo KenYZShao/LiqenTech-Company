@@ -3,329 +3,312 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ClinicDesk · WhatsApp Booking for Clinics</title>
-    <meta name="description" content="ClinicDesk by LiqenTech – A smart WhatsApp chatbot that helps clinics in the UK and Ireland automate patient bookings.">
-    <!-- Tailwind + Font Awesome -->
+    <title>LiqenTech · AI SaaS for Growing Companies</title>
+    <!-- Tailwind + custom font -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome 6 (free) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-    <!-- 假设公司 Logo 存放在 Asset/LiqenTech-logo.png (请根据实际文件名调整) -->
-    <link rel="icon" href="Asset/LiqenTech-Circle-logo.png" type="image/png">
+    <!-- 自定义科技感微调 -->
     <style>
-        /* 自定义平滑滚动和微小动画 */
-        html { scroll-behavior: smooth; }
-        .fade-in {
-            opacity: 0;
-            animation: fadeIn 0.8s ease-in-out forwards;
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        * { font-family: 'Inter', sans-serif; }
+        body { background: #0a0a0f; }
+        .tech-glow {
+            box-shadow: 0 0 30px rgba(0, 180, 255, 0.2);
         }
-        @keyframes fadeIn {
-            0% { opacity: 0; transform: translateY(12px); }
-            100% { opacity: 1; transform: translateY(0); }
+        .glass-card {
+            background: rgba(20, 30, 45, 0.5);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(0, 180, 255, 0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        /* 汉堡菜单样式 (简单版) */
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .nav-links.show { display: flex; flex-direction: column; position: absolute; top: 70px; left: 0; right: 0; background: white; padding: 1rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
-            .hamburger { display: block; }
+        .glass-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 180, 255, 0.2);
+            border-color: rgba(0, 180, 255, 0.4);
         }
-        .hamburger { display: none; cursor: pointer; }
+        .grid-bg {
+            background-image: radial-gradient(rgba(0, 180, 255, 0.1) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        .hero-gradient {
+            background: radial-gradient(circle at 30% 40%, rgba(0, 180, 255, 0.15) 0%, transparent 50%);
+        }
+        /* 简单的动画 */
+        .float {
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body class="text-gray-200 antialiased grid-bg">
 
-<!-- ========== 导航栏 ========== -->
-<header class="bg-white shadow-sm sticky top-0 z-30">
-    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-        <!-- Logo + 公司名称 -->
+<!-- 导航栏 -->
+<nav class="fixed top-0 w-full z-50 glass-card border-t-0 border-x-0 rounded-none backdrop-blur-lg bg-[#0a0a0f]/70">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+        <!-- Logo + 公司名 -->
         <a href="#" class="flex items-center space-x-2">
-            <img src="Asset/LiqenTech-Circle-logo.png" alt="LiqenTech" class="h-10 w-auto">
-            <span class="font-bold text-xl text-gray-800">LiqenTechhh</span>
+            <div class="w-8 h-8 bg-gradient-to-tr from-cyan-400 to-blue-600 rounded-lg flex items-center justify-center">
+                <span class="text-white font-bold text-xl">L</span>
+            </div>
+            <span class="text-xl font-semibold tracking-tight text-white">LiqenTech</span>
         </a>
-
-        <!-- 桌面端导航 -->
-        <nav class="hidden md:flex space-x-8">
-            <a href="#home" class="text-gray-600 hover:text-blue-600 transition">Home</a>
-            <a href="#features" class="text-gray-600 hover:text-blue-600 transition">Features</a>
-            <a href="#demo" class="text-gray-600 hover:text-blue-600 transition">Demo</a>
-            <a href="#testimonials" class="text-gray-600 hover:text-blue-600 transition">Testimonials</a>
-            <a href="#contact" class="text-gray-600 hover:text-blue-600 transition">Contact</a>
-        </nav>
-
-        <!-- 移动端汉堡菜单 (简单实现) -->
-        <div class="hamburger md:hidden" id="hamburger">
-            <i class="fa-solid fa-bars text-2xl text-gray-600"></i>
+        <!-- 桌面导航 -->
+        <div class="hidden md:flex items-center space-x-8 text-sm font-medium">
+            <a href="#home" class="hover:text-cyan-400 transition">Home</a>
+            <a href="#products" class="hover:text-cyan-400 transition">Products</a>
+            <a href="#about" class="hover:text-cyan-400 transition">About</a>
+            <a href="#contact" class="hover:text-cyan-400 transition">Contact</a>
         </div>
-
         <!-- CTA 按钮 -->
-        <a href="#contact" class="hidden md:block bg-blue-600 text-white px-5 py-2 rounded-full text-sm font-medium hover:bg-blue-700 transition">Book a demo</a>
-    </div>
-
-    <!-- 移动端导航菜单 (隐藏默认，点击显示) -->
-    <div class="nav-links hidden flex-col md:hidden bg-white px-4 pb-4 shadow-md" id="mobileMenu">
-        <a href="#home" class="py-2 text-gray-700 hover:text-blue-600">Home</a>
-        <a href="#features" class="py-2 text-gray-700 hover:text-blue-600">Features</a>
-        <a href="#demo" class="py-2 text-gray-700 hover:text-blue-600">Demo</a>
-        <a href="#testimonials" class="py-2 text-gray-700 hover:text-blue-600">Testimonials</a>
-        <a href="#contact" class="py-2 text-gray-700 hover:text-blue-600">Contact</a>
-        <a href="#contact" class="mt-2 bg-blue-600 text-white text-center px-4 py-2 rounded-full text-sm">Book a demo</a>
-    </div>
-</header>
-
-<!-- ========== 英雄区 (Home) ========== -->
-<section id="home" class="pt-24 pb-20 md:pt-32 md:pb-28 bg-gradient-to-br from-blue-50 to-white">
-    <div class="container mx-auto px-4 flex flex-col md:flex-row items-center gap-12">
-        <div class="md:w-1/2 space-y-6 fade-in">
-            <h1 class="text-4xl md:text-5xl font-bold leading-tight text-gray-900">
-                <span class="text-blue-600">ClinicDesk</span><br>
-                Your WhatsApp booking assistant for clinics
-            </h1>
-            <p class="text-lg text-gray-600">Serve patients in the UK and Ireland instantly. Let our AI chatbot handle appointments, reminders, and FAQs — all inside WhatsApp.</p>
-            <div class="flex flex-wrap gap-4">
-                <a href="#demo" class="bg-blue-600 text-white px-8 py-3 rounded-full font-medium hover:bg-blue-700 transition shadow-lg">Watch demo</a>
-                <a href="#contact" class="border border-blue-600 text-blue-600 px-8 py-3 rounded-full font-medium hover:bg-blue-50 transition">Start free trial</a>
-            </div>
-            <p class="text-sm text-gray-500 flex items-center gap-2"><i class="fa-regular fa-circle-check text-green-500"></i> No credit card required · 14-day trial</p>
-        </div>
-        <div class="md:w-1/2 fade-in">
-            <!-- 示意手机上的 WhatsApp 聊天界面 (纯装饰) -->
-            <div class="bg-white rounded-3xl shadow-xl p-4 border border-gray-200 max-w-sm mx-auto">
-                <div class="flex items-center gap-3 border-b pb-3">
-                    <i class="fa-brands fa-whatsapp text-3xl text-green-500"></i>
-                    <div><p class="font-semibold">ClinicDesk</p><p class="text-xs text-gray-500">online</p></div>
-                </div>
-                <div class="py-4 space-y-2">
-                    <div class="bg-green-100 p-3 rounded-lg max-w-[80%] ml-auto text-sm">Hi! I'd like to book an appointment with Dr. Smith.</div>
-                    <div class="bg-gray-100 p-3 rounded-lg max-w-[80%] text-sm">Sure! Available slots: Today 3pm, Tomorrow 10am. Which suits you?</div>
-                    <div class="bg-green-100 p-3 rounded-lg max-w-[80%] ml-auto text-sm">Tomorrow 10am works.</div>
-                    <div class="bg-gray-100 p-3 rounded-lg max-w-[80%] text-sm">Great! Your appointment is confirmed. You'll get a reminder 1h before.</div>
-                </div>
-            </div>
+        <a href="#contact" class="hidden md:block bg-gradient-to-r from-cyan-500 to-blue-600 px-5 py-2 rounded-full text-sm font-semibold hover:shadow-lg hover:scale-105 transition">Get early access</a>
+        <!-- 移动端菜单按钮（简化） -->
+        <div class="md:hidden text-2xl cursor-pointer">
+            <i class="fa-solid fa-bars"></i>
         </div>
     </div>
-</section>
+</nav>
 
-<!-- ========== 功能亮点 (Features) ========== -->
-<section id="features" class="py-20 bg-white">
-    <div class="container mx-auto px-4">
-        <div class="text-center max-w-3xl mx-auto mb-16">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Everything your clinic needs</h2>
-            <p class="text-gray-600 mt-4">Designed for GPs, dentists, physios and specialists across the UK and Ireland.</p>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div class="text-center p-6 rounded-2xl hover:shadow-md transition">
-                <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                    <i class="fa-brands fa-whatsapp text-3xl text-blue-600"></i>
-                </div>
-                <h3 class="font-bold text-xl mb-2">Native WhatsApp</h3>
-                <p class="text-gray-600">Patients book the way they chat — no app install, no learning curve.</p>
-            </div>
-            <div class="text-center p-6 rounded-2xl hover:shadow-md transition">
-                <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                    <i class="fa-regular fa-calendar-check text-3xl text-blue-600"></i>
-                </div>
-                <h3 class="font-bold text-xl mb-2">Smart scheduling</h3>
-                <p class="text-gray-600">Syncs with your calendar, sends reminders, reduces no-shows by up to 40%.</p>
-            </div>
-            <div class="text-center p-6 rounded-2xl hover:shadow-md transition">
-                <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                    <i class="fa-regular fa-building text-3xl text-blue-600"></i>
-                </div>
-                <h3 class="font-bold text-xl mb-2">Multi‑clinic ready</h3>
-                <p class="text-gray-600">Manage multiple locations, clinicians and services from one dashboard.</p>
-            </div>
-            <div class="text-center p-6 rounded-2xl hover:shadow-md transition">
-                <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                    <i class="fa-solid fa-shield-heart text-3xl text-blue-600"></i>
-                </div>
-                <h3 class="font-bold text-xl mb-2">GDPR compliant</h3>
-                <p class="text-gray-600">Hosted in UK/Ireland, end‑to‑end encryption, data never leaves your control.</p>
-            </div>
-        </div>
-    </div>
-</section>
+<!-- 主内容 (pt-20 避免被导航遮挡) -->
+<main class="pt-20">
 
-<!-- ========== YouTube 视频演示 (Demo) ========== -->
-<section id="demo" class="py-20 bg-gray-50">
-    <div class="container mx-auto px-4">
-        <div class="text-center max-w-3xl mx-auto mb-12">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-900">See ClinicDesk in action</h2>
-            <p class="text-gray-600 mt-4">Watch how a patient books an appointment in under 30 seconds.</p>
-        </div>
-        <div class="max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-xl">
-            <!-- 16:9 响应式视频容器 -->
-            <div class="relative pb-[56.25%] h-0">
-                <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="ClinicDesk demo video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <!-- Hero 区域 -->
+    <section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <!-- 背景光效 -->
+        <div class="absolute inset-0 hero-gradient"></div>
+        <div class="absolute top-1/3 right-10 w-64 h-64 bg-blue-500/20 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-1/4 left-10 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl"></div>
+        
+        <div class="container mx-auto px-6 z-10 text-center">
+            <div class="max-w-4xl mx-auto">
+                <!-- 徽章 -->
+                <span class="inline-block px-3 py-1 text-xs font-semibold tracking-wider text-cyan-300 bg-cyan-900/30 border border-cyan-500/30 rounded-full mb-6">✨ AI-POWERED SAAS · IRELAND</span>
+                <!-- 主标题 -->
+                <h1 class="text-5xl md:text-7xl font-extrabold leading-tight">
+                    <span class="bg-gradient-to-r from-cyan-300 via-blue-300 to-purple-300 bg-clip-text text-transparent">LiqenTech</span><br>
+                    <span class="text-white">Smart SaaS for<br>Growing Companies</span>
+                </h1>
+                <!-- 描述 -->
+                <p class="text-lg md:text-xl text-gray-300 mt-6 max-w-2xl mx-auto">
+                    LiqenTech builds powerful, user-first SaaS tools that help small and medium businesses scale faster with less effort. From AI-powered assistants to marketing, sales, and business intelligence — automate the routine, focus on growth.
+                </p>
+                <!-- CTA 按钮组 -->
+                <div class="flex flex-wrap gap-4 justify-center mt-10">
+                    <a href="#products" class="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-8 py-3 rounded-full font-semibold shadow-xl shadow-blue-500/30 transition">Explore products</a>
+                    <a href="#contact" class="border border-gray-500 hover:border-cyan-400 text-gray-200 hover:text-white px-8 py-3 rounded-full font-semibold backdrop-blur-sm transition">Request demo</a>
+                </div>
+                <!-- 科技感装饰（简单图形） -->
+                <div class="flex justify-center mt-16 space-x-2">
+                    <div class="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-pulse"></div>
+                    <div class="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse delay-150"></div>
+                    <div class="w-1.5 h-1.5 bg-purple-400 rounded-full animate-pulse delay-300"></div>
+                </div>
             </div>
         </div>
-        <p class="text-center text-sm text-gray-500 mt-4">* This is a placeholder video. Replace the YouTube ID with your real demo.</p>
-    </div>
-</section>
+    </section>
 
-<!-- ========== 客户好评 (Testimonials) ========== -->
-<section id="testimonials" class="py-20 bg-white">
-    <div class="container mx-auto px-4">
-        <div class="text-center max-w-3xl mx-auto mb-16">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Trusted by clinics across the UK & Ireland</h2>
-            <p class="text-gray-600 mt-4">Hear from practitioners who streamlined their bookings.</p>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- 好评1 -->
-            <div class="bg-gray-50 p-6 rounded-2xl shadow-sm hover:shadow-md transition">
-                <div class="flex items-center gap-3 mb-4">
-                    <div class="w-12 h-12 bg-blue-200 rounded-full flex items-center justify-center text-xl font-bold text-blue-800">JD</div>
-                    <div>
-                        <p class="font-semibold">Dr. James Doyle</p>
-                        <p class="text-sm text-gray-500">The Dublin Health Centre, Ireland</p>
+    <!-- 产品/服务区域 -->
+    <section id="products" class="py-28 bg-[#0c0c14]">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="text-cyan-400 text-sm font-semibold tracking-widest">OUR PRODUCTS</span>
+                <h2 class="text-4xl md:text-5xl font-bold mt-2">Intelligent tools for every department</h2>
+                <p class="text-gray-400 max-w-2xl mx-auto mt-4">From AI receptionists to predictive analytics — we've got your team covered.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- 产品 1: AI 助手 -->
+                <div class="glass-card rounded-2xl p-8">
+                    <div class="w-14 h-14 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-xl flex items-center justify-center mb-6 shadow-lg shadow-cyan-500/30">
+                        <i class="fa-solid fa-robot text-3xl text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-2">AI Business Assistant</h3>
+                    <p class="text-gray-400 leading-relaxed">Automate customer support, schedule meetings, and handle routine inquiries 24/7 — in any language.</p>
+                    <div class="mt-6 flex items-center text-cyan-400 text-sm font-semibold">
+                        <span>Learn more</span>
+                        <i class="fa-solid fa-arrow-right ml-2"></i>
                     </div>
                 </div>
-                <p class="text-gray-700 italic">“ClinicDesk cut our missed appointments by 35% in the first month. Patients love the WhatsApp interface — it's so familiar.”</p>
-                <div class="flex mt-3 text-yellow-400">
-                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                </div>
-            </div>
-            <!-- 好评2 -->
-            <div class="bg-gray-50 p-6 rounded-2xl shadow-sm hover:shadow-md transition">
-                <div class="flex items-center gap-3 mb-4">
-                    <div class="w-12 h-12 bg-green-200 rounded-full flex items-center justify-center text-xl font-bold text-green-800">EP</div>
-                    <div>
-                        <p class="font-semibold">Emma Prescott</p>
-                        <p class="text-sm text-gray-500">Manchester Physiotherapy, UK</p>
+                <!-- 产品 2: 营销自动化 -->
+                <div class="glass-card rounded-2xl p-8">
+                    <div class="w-14 h-14 bg-gradient-to-br from-purple-400 to-pink-500 rounded-xl flex items-center justify-center mb-6 shadow-lg shadow-purple-500/30">
+                        <i class="fa-solid fa-chart-line text-3xl text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-2">Marketing Suite</h3>
+                    <p class="text-gray-400 leading-relaxed">Predict customer behaviour, run multi‑channel campaigns, and optimise ROI with AI‑driven insights.</p>
+                    <div class="mt-6 flex items-center text-cyan-400 text-sm font-semibold">
+                        <span>Learn more</span>
+                        <i class="fa-solid fa-arrow-right ml-2"></i>
                     </div>
                 </div>
-                <p class="text-gray-700 italic">“Our reception team used to spend hours on the phone. Now most routine bookings happen automatically, even out of hours.”</p>
-                <div class="flex mt-3 text-yellow-400">
-                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                </div>
-            </div>
-            <!-- 好评3 -->
-            <div class="bg-gray-50 p-6 rounded-2xl shadow-sm hover:shadow-md transition">
-                <div class="flex items-center gap-3 mb-4">
-                    <div class="w-12 h-12 bg-purple-200 rounded-full flex items-center justify-center text-xl font-bold text-purple-800">SK</div>
-                    <div>
-                        <p class="font-semibold">Dr. Sanjay Kapoor</p>
-                        <p class="text-sm text-gray-500">Birmingham Dental Practice, UK</p>
+                <!-- 产品 3: 销售智能 -->
+                <div class="glass-card rounded-2xl p-8">
+                    <div class="w-14 h-14 bg-gradient-to-br from-green-400 to-teal-500 rounded-xl flex items-center justify-center mb-6 shadow-lg shadow-green-500/30">
+                        <i class="fa-solid fa-bullseye text-3xl text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-2">Sales Intelligence</h3>
+                    <p class="text-gray-400 leading-relaxed">Score leads, forecast revenue, and automate follow-ups so your team closes deals faster.</p>
+                    <div class="mt-6 flex items-center text-cyan-400 text-sm font-semibold">
+                        <span>Learn more</span>
+                        <i class="fa-solid fa-arrow-right ml-2"></i>
                     </div>
                 </div>
-                <p class="text-gray-700 italic">“Easy to set up, integrates with our existing calendar. The multilingual WhatsApp replies are a bonus for our diverse patients.”</p>
-                <div class="flex mt-3 text-yellow-400">
-                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-alt"></i>
-                </div>
-            </div>
-            <!-- 好评4 -->
-            <div class="bg-gray-50 p-6 rounded-2xl shadow-sm hover:shadow-md transition">
-                <div class="flex items-center gap-3 mb-4">
-                    <div class="w-12 h-12 bg-red-200 rounded-full flex items-center justify-center text-xl font-bold text-red-800">CM</div>
-                    <div>
-                        <p class="font-semibold">Catherine Murphy</p>
-                        <p class="text-sm text-gray-500">Cork Women's Health, Ireland</p>
+                <!-- 产品 4: 商业智能 (BI) -->
+                <div class="glass-card rounded-2xl p-8">
+                    <div class="w-14 h-14 bg-gradient-to-br from-orange-400 to-red-500 rounded-xl flex items-center justify-center mb-6 shadow-lg shadow-orange-500/30">
+                        <i class="fa-solid fa-chart-pie text-3xl text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-2">Business Intelligence</h3>
+                    <p class="text-gray-400 leading-relaxed">Connect your data sources, get real‑time dashboards, and uncover hidden patterns with AI.</p>
+                    <div class="mt-6 flex items-center text-cyan-400 text-sm font-semibold">
+                        <span>Learn more</span>
+                        <i class="fa-solid fa-arrow-right ml-2"></i>
                     </div>
                 </div>
-                <p class="text-gray-700 italic">“Finally a booking tool that feels personal. Patients appreciate the quick replies and automated reminders.”</p>
-                <div class="flex mt-3 text-yellow-400">
-                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                </div>
-            </div>
-            <!-- 好评5 -->
-            <div class="bg-gray-50 p-6 rounded-2xl shadow-sm hover:shadow-md transition">
-                <div class="flex items-center gap-3 mb-4">
-                    <div class="w-12 h-12 bg-indigo-200 rounded-full flex items-center justify-center text-xl font-bold text-indigo-800">RB</div>
-                    <div>
-                        <p class="font-semibold">Dr. Richard Brown</p>
-                        <p class="text-sm text-gray-500">Edinburgh GP Surgery, UK</p>
+                <!-- 产品 5: 工作流自动化 -->
+                <div class="glass-card rounded-2xl p-8">
+                    <div class="w-14 h-14 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-xl flex items-center justify-center mb-6 shadow-lg shadow-blue-500/30">
+                        <i class="fa-solid fa-diagram-project text-3xl text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-2">Workflow Automator</h3>
+                    <p class="text-gray-400 leading-relaxed">Build custom integrations and automate repetitive tasks without writing a single line of code.</p>
+                    <div class="mt-6 flex items-center text-cyan-400 text-sm font-semibold">
+                        <span>Learn more</span>
+                        <i class="fa-solid fa-arrow-right ml-2"></i>
                     </div>
                 </div>
-                <p class="text-gray-700 italic">“We handle 30% more appointment requests without hiring extra staff. The dashboard is intuitive and reporting is spot on.”</p>
-                <div class="flex mt-3 text-yellow-400">
-                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i>
-                </div>
-            </div>
-            <!-- 好评6 -->
-            <div class="bg-gray-50 p-6 rounded-2xl shadow-sm hover:shadow-md transition">
-                <div class="flex items-center gap-3 mb-4">
-                    <div class="w-12 h-12 bg-teal-200 rounded-full flex items-center justify-center text-xl font-bold text-teal-800">LO</div>
-                    <div>
-                        <p class="font-semibold">Laura O'Brien</p>
-                        <p class="text-sm text-gray-500">Galway Children's Clinic, Ireland</p>
+                <!-- 产品 6: 开发者平台 -->
+                <div class="glass-card rounded-2xl p-8">
+                    <div class="w-14 h-14 bg-gradient-to-br from-gray-400 to-gray-600 rounded-xl flex items-center justify-center mb-6 shadow-lg shadow-gray-500/30">
+                        <i class="fa-solid fa-code text-3xl text-white"></i>
                     </div>
-                </div>
-                <p class="text-gray-700 italic">“Our parents love booking appointments while juggling kids — no phone queues, just WhatsApp. Thank you ClinicDesk!”</p>
-                <div class="flex mt-3 text-yellow-400">
-                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    <h3 class="text-2xl font-bold text-white mb-2">API & Extensions</h3>
+                    <p class="text-gray-400 leading-relaxed">Extend our tools with your own code. Robust APIs and webhooks to fit any stack.</p>
+                    <div class="mt-6 flex items-center text-cyan-400 text-sm font-semibold">
+                        <span>Learn more</span>
+                        <i class="fa-solid fa-arrow-right ml-2"></i>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- ========== 行动呼吁 (Contact / CTA) ========== -->
-<section id="contact" class="py-20 bg-blue-600 text-white">
-    <div class="container mx-auto px-4 text-center max-w-3xl">
-        <h2 class="text-3xl md:text-4xl font-bold mb-4">Ready to transform your clinic bookings?</h2>
-        <p class="text-xl mb-8 opacity-90">Join hundreds of UK and Irish clinics already using ClinicDesk.</p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="#" class="bg-white text-blue-600 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition shadow-lg">Start 14-day free trial</a>
-            <a href="#" class="border border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-blue-700 transition">Request a personalised demo</a>
-        </div>
-        <p class="mt-8 text-sm opacity-75"><i class="fa-regular fa-envelope mr-2"></i> sales@liqentech.com  |  +44 20 7946 0138  |  Dublin · London</p>
-    </div>
-</section>
-
-<!-- ========== 页脚 ========== -->
-<footer class="bg-gray-900 text-gray-400 py-12">
-    <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
-        <div>
-            <div class="flex items-center space-x-2 mb-4">
-                <img src="Asset/LiqenTech-logo.png" alt="LiqenTech" class="h-8">
-                <span class="font-bold text-white text-lg">LiqenTech</span>
+    <!-- 科技感标语/数据区域 -->
+    <section class="py-20 border-y border-white/5">
+        <div class="container mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <div>
+                <div class="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-blue-400">98%</div>
+                <p class="text-gray-400 mt-2">Customer satisfaction</p>
             </div>
-            <p class="text-sm">Smart communication tools for modern clinics. Made with ❤️ in Ireland and UK.</p>
+            <div>
+                <div class="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-blue-400">10x</div>
+                <p class="text-gray-400 mt-2">Faster onboarding</p>
+            </div>
+            <div>
+                <div class="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-blue-400">50+</div>
+                <p class="text-gray-400 mt-2">Integrations</p>
+            </div>
+            <div>
+                <div class="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-blue-400">24/7</div>
+                <p class="text-gray-400 mt-2">AI support</p>
+            </div>
         </div>
-        <div>
-            <h4 class="font-semibold text-white mb-3">Product</h4>
-            <ul class="space-y-2 text-sm">
-                <li><a href="#features" class="hover:text-white">Features</a></li>
-                <li><a href="#demo" class="hover:text-white">Demo</a></li>
-                <li><a href="#" class="hover:text-white">Pricing</a></li>
-                <li><a href="#" class="hover:text-white">FAQ</a></li>
-            </ul>
-        </div>
-        <div>
-            <h4 class="font-semibold text-white mb-3">Company</h4>
-            <ul class="space-y-2 text-sm">
-                <li><a href="#" class="hover:text-white">About us</a></li>
-                <li><a href="#" class="hover:text-white">Blog</a></li>
-                <li><a href="#" class="hover:text-white">Careers</a></li>
-                <li><a href="#" class="hover:text-white">Contact</a></li>
-            </ul>
-        </div>
-        <div>
-            <h4 class="font-semibold text-white mb-3">Legal</h4>
-            <ul class="space-y-2 text-sm">
-                <li><a href="#" class="hover:text-white">Privacy policy</a></li>
-                <li><a href="#" class="hover:text-white">Terms of service</a></li>
-                <li><a href="#" class="hover:text-white">GDPR</a></li>
-            </ul>
-        </div>
-    </div>
-    <div class="container mx-auto px-4 mt-8 pt-6 border-t border-gray-800 text-center text-sm">
-        <p>&copy; 2026 LiqenTech. ClinicDesk is a trademark of LiqenTech Ltd. All rights reserved.</p>
-    </div>
-</footer>
+    </section>
 
-<!-- 简单移动端汉堡菜单交互 -->
+    <!-- 关于/团队区域 (融入爱尔兰元素) -->
+    <section id="about" class="py-28">
+        <div class="container mx-auto px-6 flex flex-col lg:flex-row items-center gap-16">
+            <div class="lg:w-1/2">
+                <span class="text-cyan-400 text-sm font-semibold tracking-widest">MADE IN IRELAND</span>
+                <h2 class="text-4xl md:text-5xl font-bold mt-2 text-white">Built by a remote‑first team in Dublin</h2>
+                <p class="text-gray-300 text-lg mt-6 leading-relaxed">
+                    We’re a small but ambitious team of engineers, designers, and AI specialists. 
+                    Our mission is to democratise intelligent automation for small businesses across Europe and beyond. 
+                    Based in the heart of Dublin’s tech scene, we combine Irish creativity with global ambition.
+                </p>
+                <div class="mt-8 flex items-center space-x-4">
+                    <div class="flex -space-x-2">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" class="w-12 h-12 rounded-full border-2 border-cyan-400" alt="team">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" class="w-12 h-12 rounded-full border-2 border-cyan-400" alt="team">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" class="w-12 h-12 rounded-full border-2 border-cyan-400" alt="team">
+                        <img src="https://randomuser.me/api/portraits/men/75.jpg" class="w-12 h-12 rounded-full border-2 border-cyan-400" alt="team">
+                    </div>
+                    <span class="text-gray-400 text-sm">+ 12 more</span>
+                </div>
+            </div>
+            <div class="lg:w-1/2 relative">
+                <div class="relative w-full h-96 rounded-3xl overflow-hidden glass-card border p-2">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-blue-900/30 to-transparent"></div>
+                    <!-- 抽象的都柏林天际线 placeholder (可替换为真实图片) -->
+                    <div class="w-full h-full rounded-2xl bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1519183071298-f2f1e0e7b9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');"></div>
+                </div>
+                <!-- 浮动小卡片 -->
+                <div class="absolute -bottom-6 -left-6 glass-card p-4 rounded-xl hidden md:block">
+                    <i class="fa-solid fa-map-pin text-cyan-400 mr-2"></i>
+                    <span class="text-sm">Dublin · London · Remote</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系/行动呼吁 -->
+    <section id="contact" class="py-28 bg-gradient-to-b from-[#0c0c14] to-[#0a0a0f]">
+        <div class="container mx-auto px-6 text-center">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="text-4xl md:text-5xl font-bold text-white">Ready to scale smarter?</h2>
+                <p class="text-xl text-gray-300 mt-6">Join hundreds of growing companies that trust LiqenTech to automate their routine and accelerate growth.</p>
+                <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#" class="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-8 py-4 rounded-full font-semibold text-lg shadow-xl shadow-blue-500/30 transition">Get early access</a>
+                    <a href="#" class="border border-gray-500 hover:border-cyan-400 text-gray-200 hover:text-white px-8 py-4 rounded-full font-semibold text-lg backdrop-blur-sm transition">Talk to our team</a>
+                </div>
+                <p class="text-gray-500 mt-8 text-sm"><i class="fa-regular fa-envelope mr-2"></i> hello@liqentech.ie  |  +353 1 234 5678  |  Dublin, Ireland</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="border-t border-white/5 py-12">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
+                <div class="flex items-center space-x-4">
+                    <span>© 2026 LiqenTech Ltd.</span>
+                    <span>·</span>
+                    <a href="#" class="hover:text-cyan-400">Privacy</a>
+                    <span>·</span>
+                    <a href="#" class="hover:text-cyan-400">Terms</a>
+                </div>
+                <div class="flex space-x-5 mt-4 md:mt-0">
+                    <a href="#" class="text-gray-400 hover:text-cyan-400 text-xl"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-cyan-400 text-xl"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-cyan-400 text-xl"><i class="fa-brands fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</main>
+
+<!-- 简单的移动端菜单交互 (简化) -->
 <script>
     (function() {
-        const hamburger = document.getElementById('hamburger');
-        const mobileMenu = document.getElementById('mobileMenu');
-        if (hamburger && mobileMenu) {
-            hamburger.addEventListener('click', function(e) {
-                e.stopPropagation();
-                mobileMenu.classList.toggle('hidden');
-            });
-            // 点击链接后自动隐藏菜单
-            mobileMenu.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', function() {
-                    mobileMenu.classList.add('hidden');
-                });
+        const menuBtn = document.querySelector('.fa-bars');
+        const navMenu = document.querySelector('.md\\:flex'); // 偷懒用类选择
+        if (menuBtn && navMenu) {
+            menuBtn.parentElement.addEventListener('click', () => {
+                navMenu.classList.toggle('hidden');
+                navMenu.classList.toggle('flex');
+                navMenu.classList.toggle('flex-col');
+                navMenu.classList.toggle('absolute');
+                navMenu.classList.toggle('top-20');
+                navMenu.classList.toggle('left-0');
+                navMenu.classList.toggle('right-0');
+                navMenu.classList.toggle('glass-card');
+                navMenu.classList.toggle('p-6');
+                navMenu.classList.toggle('space-x-0');
+                navMenu.classList.toggle('space-y-4');
             });
         }
     })();
