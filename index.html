@@ -240,12 +240,13 @@
                     <span class="text-gray-400 text-sm">+ 12 more</span>
                 </div>
             </div>
-            <div class="lg:w-1/2 relative">
+
                 <div class="relative w-full h-96 rounded-3xl overflow-hidden glass-card border p-2">
-                    <div class="absolute inset-0 bg-gradient-to-tr from-blue-900/30 to-transparent"></div>
-                    <!-- 抽象的都柏林天际线 placeholder (可替换为真实图片) -->
-                    <div class="w-full h-full rounded-2xl bg-cover bg-center" style="background-image: url('Asset/Team01.png');"></div>
-                </div>
+    <!-- 保留渐变遮罩层，并确保它位于图片上方但不影响交互 -->
+    <div class="absolute inset-0 bg-gradient-to-tr from-blue-900/30 to-transparent z-10 pointer-events-none"></div>
+    <!-- 使用 img 标签显示您的团队图片 -->
+    <img src="Asset/Team01.png" alt="LiqenTech Team" class="w-full h-full object-cover rounded-2xl">
+</div>
                 <!-- 浮动小卡片 -->
                 <div class="absolute -bottom-6 -left-6 glass-card p-4 rounded-xl hidden md:block">
                     <i class="fa-solid fa-map-pin text-cyan-400 mr-2"></i>
