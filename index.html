@@ -241,12 +241,13 @@
                 </div>
             </div>
 
-                <div class="relative w-full h-96 rounded-3xl overflow-hidden glass-card border p-2">
-    <!-- 保留渐变遮罩层，并确保它位于图片上方但不影响交互 -->
+                <div class="relative w-full h-96 rounded-3xl overflow-hidden glass-card border p-2 bg-gray-900">
+    <!-- 保留渐变遮罩层（可选，如果不需要可删除） -->
     <div class="absolute inset-0 bg-gradient-to-tr from-blue-900/30 to-transparent z-10 pointer-events-none"></div>
-    <!-- 使用 img 标签显示您的团队图片 -->
-    <img src="Asset/Team01.png" alt="LiqenTech Team" class="w-full h-full object-cover rounded-2xl">
+    <!-- 使用 object-contain 保持完整显示 -->
+    <img src="Asset/Team01.png" alt="LiqenTech Team" class="w-full h-full object-contain rounded-2xl">
 </div>
+
                 <!-- 浮动小卡片 -->
                 <div class="absolute -bottom-6 -left-6 glass-card p-4 rounded-xl hidden md:block">
                     <i class="fa-solid fa-map-pin text-cyan-400 mr-2"></i>
